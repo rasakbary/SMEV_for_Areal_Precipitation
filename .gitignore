@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Jupyter / IDE
+.ipynb_checkpoints/
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Scientific data -- archived separately (see README "Data availability")
+*.nc
+*.nc4
+*.grib
+*.grb
+*.h5
+*.hdf5
+*.parquet
+*.tif
+*.tiff
+*.zarr/
+
+# Pipeline output directories
+OE_details/
+OE_Details/
+parameters/
+quantiles/
+quantiles_CIs/
+results/
+logs/
+*.log
+*.errlog

@@ -1,0 +1,82 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please also credit pyTENAX, from which the SMEV
+  estimator in smev.py is derived (see THIRD_PARTY_NOTICES.md).
+title: >-
+  Areal SMEV: SMEV applied to areal precipitation over space and its temperature scaling
+abstract: >-
+  Script for fitting the Simplified Metastatistical Extreme Value (SMEV)
+  model to areal precipitation in convection-permitting and regional
+  climate model output. It computes precipitation return levels at various spatial and temporal scales, 
+  characterizes the spatial structure of the underlying precipitation ordinary events, and estimates their 
+  temperature scaling by quantile regression.
+type: software
+authors:
+  - family-names: Akbary
+    given-names: Rashid
+    email: rashid.akbary93@gmail.com
+    orcid: "https://orcid.org/0000-0002-0118-7298"   
+license: MIT
+version: 1.0.0
+date-released: "2026-08-15"   
+repository-code: "https://github.com/rasakbary/SMEV_for_Areal_Precipitation"  
+# doi: "10.5281/zenodo.XXXXXXX"                        # TODO
+
+keywords:
+  - extreme precipitation
+  - extreme areal precipitation
+  - SMEV
+  - metastatistical extreme value
+  - convection-permitting models
+  - regional climate models
+  - CORDEX-FPSCONV
+  - temperature scaling
+  - Clausius-Clapeyron
+
+references:
+  - type: software
+    title: pyTENAX
+    version: 0.1.2
+    authors:
+      - family-names: Vey
+        given-names: Petr
+    repository-code: "https://github.com/PetrVey/pyTENAX"
+    license: MIT
+    year: 2024
+    notes: >-
+      smev.py in this repository is a lightly modified copy of the SMEV
+      implementation from pyTENAX v0.1.2.
+
+  - type: article
+    title: A metastatistical approach to rainfall extremes
+    authors:
+      - family-names: Marani
+        given-names: Marco
+      - family-names: Ignaccolo
+        given-names: Massimiliano
+    journal: Advances in Water Resources
+    volume: 79
+    start: 121
+    end: 126
+    year: 2015
+    doi: 10.1016/j.advwatres.2015.03.001
+
+  - type: article
+    title: >-
+      Metastatistical Extreme Value analysis of hourly rainfall from short
+      records: Estimation of high quantiles and impact of measurement errors
+    authors:
+      - family-names: Marra
+        given-names: Francesco
+      - family-names: Nikolopoulos
+        given-names: Efthymios I.
+      - family-names: Anagnostou
+        given-names: Emmanouil N.
+      - family-names: Morin
+        given-names: Efrat
+    journal: Advances in Water Resources
+    volume: 117
+    start: 27
+    end: 39
+    year: 2018
+    doi: 10.1016/j.advwatres.2018.05.001

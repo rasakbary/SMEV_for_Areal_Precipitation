@@ -1,0 +1,25 @@
+# pip fallback. environment.yml (conda-forge) is strongly preferred:
+# rasterio and netCDF4 need GDAL and HDF5 system libraries that pip will not
+# install for you.
+#
+#     pip install -r requirements.txt
+#
+# Versions match environment.yml.
+
+numpy>=2.2,<2.3
+pandas>=2.3,<2.4
+scipy>=1.15,<1.16
+statsmodels>=0.14,<0.15
+
+xarray>=2025.6
+netCDF4>=1.7,<1.8
+cftime>=1.6,<1.7
+rasterio>=1.4,<1.5
+
+pyarrow>=25.0,<26.0
+PyYAML>=6.0,<7.0
+
+# Optional; smev.py falls back to numpy if numba is missing.
+numba>=0.61,<0.62
+
+pytest>=8.3

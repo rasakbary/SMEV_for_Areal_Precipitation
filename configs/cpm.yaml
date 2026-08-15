@@ -1,0 +1,85 @@
+# CPM CONFIGURATION  (Convection-Permitting Models)
+
+# Merged on top of configs/common.yaml. Only settings that differ
+# between CPMs and RCMs belong here: paths, model lists, window sizes and
+# tiling. Method settings live in common.yaml.
+#
+# Usage:
+#   python 01_areal_SMEV.py --config configs/cpm.yaml
+
+family: CPM
+
+# Models to process. 
+# CPM ensemble (models are listed as abbrevations of the institutions providing the models output):
+#   BTU, CMCC, CNRM, DWD, ETH, HCLIMcom, ICTP, JLU, KIT, KNMI,
+#   MOHC, WEGC, WEGC_WRF381DA, WRF381CA, WRF381DA
+models:
+  - ETH
+
+periods:
+  - Historical
+  - Rcp85
+
+# Moving-window sizes in grid cells. ws = 1 is the native grid (no areal
+# averaging); larger values give the side length of the square averaging window.
+ws_list: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21]
+
+
+# Placeholders available in these templates:
+#   {MODEL}         model name, e.g. "ETH"
+#   {PERIOD}        capitalised period, e.g. "Historical"
+#   {period_lower}  lower-case period, e.g. "historical"
+paths:
+  # Directory holding the merged precipitation NetCDF files for CPMs.
+  input_dir: "/path-to-cpm-input-directory/pr_{period_lower}"
+
+  # Precipitation filename within input_dir.
+  input_file: "{MODEL}_pr_{PERIOD}_merged.nc"
+
+  # Output root. The OE_details/, quantiles/, parameters/, quantiles_CIs/ and
+  # Spatial_details/ subdirectories are created underneath.
+  output_dir: "/path-to-cpm-output-directory/{PERIOD}/{MODEL}/CPM"
+
+  # Scratch space for per-worker parquet part files. Each job gets its own
+  # subdirectory, so concurrent jobs never collide. A local SSD is faster
+  # than NFS here if available.
+  staging_dir: "/path-to-staging-directory/_staging_areal_smev"
+
+  # Temperature NetCDF used by script 03. Same placeholders as above.
+  tas_file: "/path-to-temperature-directory/{MODEL}_tas_{PERIOD}_merged.nc"
+
+
+# Spatial tiling and parallelism (script 01)
+
+# Tile size in (lat, lon) cells. One inner worker holds one padded tile in
+# memory for the whole time series, so this sets the per-worker memory budget:
+#   (ny_tile + 2*pad) * (nx_tile + 2*pad) * n_time * 4 bytes
+# For a 437x183 grid with 10 years of hourly data and ws=21 (pad=10) this is
+# roughly 2.3 GB per inner worker.
+tiling:
+  ny_tile: 50
+  nx_tile: 75
+
+parallelism:
+  # Inner workers per (model, period, ws) job. With the tile sizes above a
+  # 437x183 grid yields about 9x3 = 27 tiles, so 24-32 gives good occupancy.
+  n_inner_workers: 24
+
+  # Concurrent outer jobs. Peak worker count is n_outer_jobs * n_inner_workers;
+  # If you want to process jobs sequentially set this to 1.
+  n_outer_jobs: 1
+
+  # Workers for the quantile regression in script 03.
+  n_proc_regression: 20
+
+  # Events per chunk in the vectorised T_pre24 lookup (script 03).
+  chunk_size: 5000000
+
+  # Script 02 only. Processes used for the parallel NetCDF read, and for
+  # the per-(window size, duration) metric tasks.
+  n_load_workers: 24
+  max_task_workers: 24
+
+
+# Optional spatial subset; null means use the full domain.
+spatial_subset: null

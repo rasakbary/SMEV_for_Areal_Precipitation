@@ -1,0 +1,43 @@
+# Conda environment for running the areal-SMEV analysis.
+#
+#     conda env create -f environment.yml
+#     conda activate areal-smev
+#
+# conda-forge is used throughout because rasterio, netcdf4 and pyarrow pull in
+# compiled GDAL/HDF5/Arrow libraries that are difficult to install correctly
+# with pip. If you must use pip, see requirements.txt, but expect to install
+# GDAL and HDF5 yourself first.
+
+name: areal-smev
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.10
+
+  # Numerical and data handling
+  - numpy=2.2
+  - pandas=2.3
+  - scipy=1.15
+  - statsmodels=0.14
+
+  # NetCDF and geospatial I/O
+  - xarray=2025.6
+  - netcdf4=1.7
+  - cftime=1.6
+  - rasterio=1.4
+
+  # Columnar storage for the ordinary-event tables
+  - pyarrow=25.0
+
+  # Configuration files
+  - pyyaml=6.0
+
+  # Optional: JIT kernels in smev.py. The code falls back to a pure-numpy
+  # path when numba is absent, so this is a speed-up rather than a
+  # requirement.
+  - numba=0.61
+
+  # Testing
+  - pytest=8.3

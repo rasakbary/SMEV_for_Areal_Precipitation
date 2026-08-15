@@ -1,0 +1,60 @@
+# RCM CONFIGURATION  (Regional Climate Models)
+
+# Merged on top of configs/common.yaml. Only settings that differ
+# between CPMs and RCMs belong here: paths, model lists, window sizes and
+# tiling. Method settings live in common.yaml.
+#
+# Usage:
+#   python 01_areal_SMEV.py --config configs/rcm.yaml
+
+family: RCM
+
+# RCM ensemble:
+#   BTU, CMCC, CNRM, DWD, ETH, HCLIMcom, ICTP, KIT, KNMI, WEGC_WRF381DA, WRF381DA
+models:
+  - WEGC_WRF381DA
+
+periods:
+  - Historical
+
+# Moving-window sizes in grid cells. RCMs are ~12 km.
+ws_list: [1, 2, 3, 4, 5, 6]
+
+
+# Paths
+# Placeholders available in these templates:
+#   {MODEL}         model name, e.g. "ETH"
+#   {PERIOD}        capitalised period, e.g. "Historical"
+#   {period_lower}  lower-case period, e.g. "historical"
+paths:
+  input_dir: "/path-to-rcm-input-directory/{period_lower}"
+
+  input_file: "{MODEL}_pr_{PERIOD}_rcms_merged.nc"
+
+  output_dir: "/path-to-rcm-output-directory/{PERIOD}/{MODEL}/RCM"
+
+  staging_dir: "/path-to-staging-directory/_staging_areal_smev"
+
+  tas_file: "/path-to-temperature-directory/{MODEL}_tas_{PERIOD}_rcms_merged.nc"
+
+
+# Spatial tiling and parallelism (script 01)
+
+tiling:
+  ny_tile: 19
+  nx_tile: 20
+
+parallelism:
+  n_inner_workers: 24
+  n_outer_jobs: 1
+  n_proc_regression: 20
+  chunk_size: 5000000
+
+  # Script 02 only. Processes used for the parallel NetCDF read, and for
+  # the per-(window size, duration) metric tasks.
+  n_load_workers: 24
+  max_task_workers: 24
+
+
+# Optional spatial subset; null means use the full domain.
+spatial_subset: null
