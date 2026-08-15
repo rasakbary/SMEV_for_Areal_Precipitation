@@ -20,7 +20,7 @@ license: MIT
 version: 1.0.0
 date-released: "2026-08-15"   
 repository-code: "https://github.com/rasakbary/SMEV_for_Areal_Precipitation"  
-# doi: "10.5281/zenodo.XXXXXXX"                        # TODO
+doi: "10.5281/zenodo.21953199"                       
 
 keywords:
   - extreme precipitation
