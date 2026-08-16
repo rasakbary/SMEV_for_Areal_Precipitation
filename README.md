@@ -1,6 +1,6 @@
 # Areal SMEV: SMEV applied to areal precipitation over space and its temperature scaling
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21953199.svg)](https://doi.org/10.5281/zenodo.21953199
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21953199.svg)](https://doi.org/10.5281/zenodo.21953199)
 
 This repository fits the **Simplified Metastatistical Extreme Value (SMEV)**
 model to areal precipitation in convection-permitting (CPM) and
