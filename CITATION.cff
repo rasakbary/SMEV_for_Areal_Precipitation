@@ -3,13 +3,9 @@ message: >-
   If you use this software, please also credit pyTENAX, from which the SMEV
   estimator in smev.py is derived (see THIRD_PARTY_NOTICES.md).
 title: >-
-  Areal SMEV: SMEV applied to areal precipitation over space and its temperature scaling
+  Extreme areal precipitation across spatial and temporal scales: SMEV return levels, precipitation event spatial organization, and temperature scaling  
 abstract: >-
-  Script for fitting the Simplified Metastatistical Extreme Value (SMEV)
-  model to areal precipitation in convection-permitting and regional
-  climate model output. It computes precipitation return levels at various spatial and temporal scales, 
-  characterizes the spatial structure of the underlying precipitation ordinary events, and estimates their 
-  temperature scaling by quantile regression.
+  Python scripts for the analysis of extreme areal precipitation in gridded precipitation and temperature datasets. Mean areal precipitation is computed over moving windows of ws x ws grid cells, yielding a range of spatial scales from the native grid cell to hundreds of kilometres. At each spatial scale, independent ordinary events are extracted across multiple durations, and the Simplified Metastatistical Extreme Value (SMEV) model is fitted to their left-censored upper tail, giving return levels for multiple durations and return periods, with optional year-block bootstrap confidence intervals. Then the workflow characterizes the spatial organization of the underlying precipitation ordinary events (storm footprint area and concentration), and estimates the scaling of event intensity with pre-event temperature by quantile regression, across the same durations and spatial scales.
 type: software
 authors:
   - family-names: Akbary
@@ -17,20 +13,22 @@ authors:
     email: rashid.akbary93@gmail.com
     orcid: "https://orcid.org/0000-0002-0118-7298"   
 license: MIT
-version: 1.0.0
-date-released: "2026-08-15"   
+version: 1.0.1
+date-released: "2026-08-21"   
 repository-code: "https://github.com/rasakbary/SMEV_for_Areal_Precipitation"  
 doi: "10.5281/zenodo.21953199"                       
 
 keywords:
   - extreme precipitation
-  - extreme areal precipitation
   - SMEV
+  - return levels
   - metastatistical extreme value
+  - spatial organization of precipitation
   - convection-permitting models
   - regional climate models
   - CORDEX-FPSCONV
   - temperature scaling
+  - quantile regression
   - Clausius-Clapeyron
 
 references:

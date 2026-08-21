@@ -1,11 +1,9 @@
-# Areal SMEV: SMEV applied to areal precipitation over space and its temperature scaling
+# Extreme areal precipitation across spatial and temporal scales: SMEV return levels, precipitation event spatial organization, and temperature scaling
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21953199.svg)](https://doi.org/10.5281/zenodo.21953199)
 
-This repository fits the **Simplified Metastatistical Extreme Value (SMEV)**
-model to areal precipitation in convection-permitting (CPM) and
-regional (RCM) climate model output, computes precipitation return levels, describes the spatial structure 
-of the underlying ordinary events, and measures how their intensity scales with temperature.
+This repository fits the **Simplified Metastatistical Extreme Value (SMEV)** model to *areal* precipitation and analyses how the extremes, their spatial organization and their temperature dependence change with spatial and temporal scale. 
+It works on any gridded precipitation and temperature dataset on a regular latitude/longitude grid; it was developed and used with convection-permitting (CPM) and regional (RCM) climate model output from CORDEX-FPSCONV simulations.
 
 > **Status:** the analysis code is complete and reproducible.
 
@@ -13,8 +11,7 @@ of the underlying ordinary events, and measures how their intensity scales with 
 
 ## What the code does
 
-It contains three stages. Each one reads what the previous stage
-wrote, so they must be run in order.
+It contains three stages. Each one reads what the previous stage wrote, so they must be run in order.
 
 | Stage | Script | What it produces |
 |-------|--------|------------------|
@@ -22,19 +19,13 @@ wrote, so they must be run in order.
 | 2 | `02_spatial_metrics.py` | Spatial footprint and concentration metrics for each event |
 | 3 | `03_temp_scaling.py` | Temperature scaling rates from quantile regression |
 
-**Stage 1** builds areal precipitation series by averaging over a moving
-`ws × ws` window, so that the same analysis can be repeated across spatial
-scales from a single grid cell up to tens of kilometres. It extracts
-independent storms, fits SMEV to the left-censored ordinary events of every
-grid cell and duration, and converts each fit into return levels.
+**Stage 1:** Builds **mean areal precipitation** series by averaging over a moving
+`ws × ws` window of grid cells, so that the same analysis can be repeated across spatial
+scales from a single grid cell up to hundreds of kilometres. It extracts independent storms, fits SMEV to the left-censored ordinary events of every grid cell and duration, and converts each fit into return levels.
 
-**Stage 2** returns to the precipitation field and describes what each event
-looked like in space: how large its footprint was, and how concentrated the
-rain was within it.
+**Stage 2:** Returns to the precipitation field and describes what each event looked like in space: how large its footprint was, and how concentrated the precipitation was within it.
 
-**Stage 3** pairs every event with the mean temperature over the 24 hours
-before its peak, and fits quantile regressions of intensity against that
-temperature to obtain scaling rates.
+**Stage 3:** Pairs every event with the mean temperature over the 24 hours before its peak, and fits quantile regressions of intensity against that temperature to obtain scaling rates.
 
 ---
 
@@ -219,9 +210,7 @@ are not redistributed here.
 
 ## Citation
 
-> Akbary, R. (2026). *Areal SMEV: SMEV applied to areal precipitation 
-> over space and its temperature scaling* (Version v1.0.0). Zenodo. 
-> https://doi.org/10.5281/zenodo.21953199
+> Akbary, R. (2026). *Extreme areal precipitation across spatial and temporal scales: SMEV return levels, precipitation event spatial organization, and temperature scaling* (Version v1.0.1). Zenodo. https://doi.org/10.5281/zenodo.21953199
 
 ---
 
